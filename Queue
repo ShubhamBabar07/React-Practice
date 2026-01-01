@@ -1,0 +1,70 @@
+
+#include <iostream>
+#include <queue>
+#include <string>
+
+using namespace std;
+
+int main() {
+
+    queue<string> customerQueue;  // Queue to store customer names
+    int choice;
+    string name;
+
+    do {
+
+        cout << "\n---- Customer Service System ----";
+        cout << "\n1. Add Customer to Queue";
+        cout << "\n2. Serve (Remove) Customer";
+        cout << "\n3. Display Waiting Customers";
+        cout << "\n4. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+        cin.ignore(); // Clear input buffer
+
+        switch (choice) {
+
+        case 1:
+            cout << "Enter customer name: ";
+            getline(cin, name);
+            customerQueue.push(name);
+            cout << name << " has joined the queue.\n";
+            break;
+
+        case 2:
+            if (customerQueue.empty()) {
+                cout << "No customers to serve.\n";
+            } else {
+                cout << customerQueue.front()
+                     << " has been served and removed from the queue.\n";
+                customerQueue.pop();
+            }
+            break;
+
+        case 3:
+            if (customerQueue.empty()) {
+                cout << "No customers in the queue.\n";
+            } else {
+                cout << "\nCustomers currently waiting:\n";
+                queue<string> temp = customerQueue; // Temporary copy to display all customers
+                int position = 1;
+
+                while (!temp.empty()) {
+                    cout << position++ << ". " << temp.front() << endl;
+                    temp.pop();
+                }
+            }
+            break;
+
+        case 4:
+            cout << "Exiting Customer Service System.\n";
+            break;
+
+        default:
+            cout << "Invalid choice. Please try again.\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
